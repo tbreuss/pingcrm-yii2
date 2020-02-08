@@ -14,7 +14,7 @@ class m200208_000000_create_accounts_table extends Migration
     {
         $this->createTable('accounts', [
             'id' => $this->primaryKey(),
-            'title' => $this->string(50)->notNull(),
+            'name' => $this->string(50)->notNull(),
             'created_at' => $this->dateTime()->null(),
             'updated_at' => $this->dateTime()->null()
         ]);
