@@ -2,103 +2,70 @@
 
 namespace app\models;
 
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+use Yii;
+
+/**
+ * This is the model class for table "users".
+ *
+ * @property int $id
+ * @property int|null $account_id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string|null $email
+ * @property string|null $password
+ * @property bool|null $owner
+ * @property string|null $photo_path
+ * @property string|null $remember_token
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ * @property string|null $deleted_at
+ */
+class User extends \yii\db\ActiveRecord
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
-
     /**
      * {@inheritdoc}
      */
-    public static function findIdentity($id)
+    public static function tableName()
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return 'users';
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function findIdentityByAccessToken($token, $type = null)
+    public function rules()
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return [
+            [['account_id'], 'integer'],
+            [['first_name', 'last_name'], 'required'],
+            [['owner'], 'boolean'],
+            [['created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['first_name', 'last_name'], 'string', 'max' => 25],
+            [['email'], 'string', 'max' => 50],
+            [['password', 'remember_token'], 'string', 'max' => 255],
+            [['photo_path'], 'string', 'max' => 100],
+            [['email'], 'unique'],
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getId()
+    public function attributeLabels()
     {
-        return $this->id;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAuthKey()
-    {
-        return $this->authKey;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateAuthKey($authKey)
-    {
-        return $this->authKey === $authKey;
-    }
-
-    /**
-     * Validates password
-     *
-     * @param string $password password to validate
-     * @return bool if password provided is valid for current user
-     */
-    public function validatePassword($password)
-    {
-        return $this->password === $password;
+        return [
+            'id' => 'ID',
+            'account_id' => 'Account ID',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'email' => 'Email',
+            'password' => 'Password',
+            'owner' => 'Owner',
+            'photo_path' => 'Photo Path',
+            'remember_token' => 'Remember Token',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+            'deleted_at' => 'Deleted At',
+        ];
     }
 }
