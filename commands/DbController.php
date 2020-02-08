@@ -18,24 +18,16 @@ class DbController extends Controller
         $generator = $seeder->getGeneratorConfigurator();
         $faker = $generator->getFakerConfigurator();
 
-//        $db->createCommand()->truncateTable('accounts')->execute();
-//        $db->createCommand()->executeResetSequence('accounts', 1);
-//        $db->createCommand()->insert('accounts', [
-//            'name' => 'Acme Corporation'
-//        ])->execute();
-//        $accountId = $db->getLastInsertID();
-
         $seeder->table('accounts')->columns([
-            'name' => 'Acme Corporation'
+            'id' => 1,
+            'name' => 'Acme Corporation',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
         ])->rowQuantity(1);
-
-        $accountId = $db->createCommand(
-            'SELECT id FROM accounts'
-        )->queryScalar();
 
         $seeder->table('organizations')->columns([
             'id', // automatic pk
-            'account_id' => $accountId,
+            'account_id' => $generator->relation('accounts', 'id'),
             'name' => $faker->company,
             'email' => $faker->companyEmail,
             'phone' => $faker->tollFreePhoneNumber,
@@ -48,17 +40,10 @@ class DbController extends Controller
             'updated_at' => date('Y-m-d H:i:s')
         ])->rowQuantity(100);
 
-        $organizationIds = $db->createCommand(
-            'SELECT id FROM organizations'
-        )->queryColumn();
-
         $seeder->table('contacts')->columns([
             'id', // automatic pk
-            'account_id' => $accountId,
-            'organization_id' => function () use ($organizationIds) {
-                shuffle($organizationIds);
-                return $organizationIds[0];
-            },
+            'account_id' => $generator->relation('accounts', 'id'),
+            'organization_id' => $generator->relation('organizations', 'id'),
             'first_name' => $faker->firstName,
             'last_name' => $faker->lastName,
             'email' => $faker->unique()->safeEmail,
@@ -74,7 +59,7 @@ class DbController extends Controller
 
         $seeder->table('users')->columns([
             'id', // automatic pk
-            'account_id' => $accountId,
+            'account_id' => $generator->relation('accounts', 'id'),
             'first_name' => $faker->firstName,
             'last_name' => $faker->lastName,
             'email' => $faker->unique()->safeEmail,
