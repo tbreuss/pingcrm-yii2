@@ -26,7 +26,7 @@ module.exports = (env, argv) => {
         resolve: {
             extensions: ['.js', '.vue', '.json'],
             alias: {
-                '@': path.resolve('resources/js')
+                '@': '/' + path.resolve(__dirname, 'resources/js')
             }
         },
         module: {

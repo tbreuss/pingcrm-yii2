@@ -1,0 +1,10 @@
+{
+    "name": "inertia/yii2",
+    "type": "yii2-extension",
+    "autoload": {
+        "classmap": ["."]
+    },
+    "extra": {
+        "bootstrap": "inertia\\Bootstrap"
+    }
+}

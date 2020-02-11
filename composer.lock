@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7e705a418f7047e6d2733eae73d71e2",
+    "content-hash": "8e52a333a457e82091b0a5006910636d",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -357,6 +357,27 @@
                 "fixtures"
             ],
             "time": "2019-12-12T13:22:17+00:00"
+        },
+        {
+            "name": "inertia/yii2",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "packages/inertia-yii2",
+                "reference": "a397ceadce8fafe2c386f8bbe570ed9e3c881b43"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "bootstrap": "inertia\\Bootstrap"
+            },
+            "autoload": {
+                "classmap": [
+                    "."
+                ]
+            },
+            "transport-options": {
+                "symlink": true
+            }
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4081,7 +4102,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "inertia/yii2": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

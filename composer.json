@@ -17,7 +17,8 @@
         "php": ">=5.6.0",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
-        "tebazil/db-seeder": "^0.0.0"
+        "tebazil/db-seeder": "^0.0.0",
+        "inertia/yii2": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -66,6 +67,13 @@
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
+        },
+        {
+            "type": "path",
+            "url": "packages/inertia-yii2",
+            "options": {
+                "symlink": true
+            }
         }
     ]
 }
