@@ -2,6 +2,7 @@
 
 namespace app\commands;
 
+use app\models\User;
 use tebazil\dbseeder\Seeder;
 use Yii;
 use yii\console\Controller;
@@ -71,6 +72,18 @@ class DbController extends Controller
         ])->rowQuantity(5);
 
         $seeder->refill();
+
+        $user = new User();
+        $user->attributes = [
+            'account_id' => 1,
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'johndoe@example.com',
+            'password' => 'secret',
+            'owner' => 1
+        ];
+        $user->save(false);
+
     }
 
 }
