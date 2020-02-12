@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
+use app\filters\SharedDataFilter;
 use app\models\Organization;
-use inertia\Controller;
-use Yii;
+use inertia\web\Controller;
 use yii\filters\AccessControl;
 
-class OrganizationsController extends Controller
+class OrganizationController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -15,14 +15,17 @@ class OrganizationsController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
+            [
                 'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
-                    ],
+                        'roles' => ['@']
+                    ]
                 ]
+            ],
+            [
+                'class' => SharedDataFilter::class
             ]
         ];
     }

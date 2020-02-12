@@ -50,9 +50,13 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'contacts' => 'contact/index',
                 'login' => 'site/login',
                 'logout' => 'site/logout',
-                'users/<id:\d+>/edit' => 'users/edit'
+                'organizations' => 'organization/index',
+                'reports' => 'report/index',
+                'users/<id:\d+>/edit' => 'user/edit',
+                'users' => 'user/index'
             ],
         ]
     ],

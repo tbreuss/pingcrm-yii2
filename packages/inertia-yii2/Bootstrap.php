@@ -10,18 +10,14 @@ use yii\web\Response;
 
 class Bootstrap implements BootstrapInterface
 {
+    private static $SHARE_KEY = '__inertia__';
+
     /**
      * @param Application $app
      */
     public function bootstrap($app)
     {
         Yii::setAlias('@inertia', __DIR__);
-        #Yii::$app->controller->enableCsrfValidation = false;
-
-        #Yii::$app->response->formatters[Response::FORMAT_JSON] = [
-        #    'class' => 'yii\web\JsonResponseFormatter',
-        #    'encodeOptions' => JSON_FORCE_OBJECT,
-        #];
 
         Yii::$app->response->on(Response::EVENT_BEFORE_SEND, [$this, 'handleResponse']);
     }
@@ -53,8 +49,8 @@ class Bootstrap implements BootstrapInterface
                         // Not needed in Yii2?
                         // $request->session()->reflash();
                     }
-#                    $response->setStatusCode(409);
-#                    $response->headers->set('X-Inertia-Location', $request->getAbsoluteUrl());
+                    // $response->setStatusCode(409);
+                    // $response->headers->set('X-Inertia-Location', $request->getAbsoluteUrl());
                 }
             }
         }
@@ -78,6 +74,20 @@ class Bootstrap implements BootstrapInterface
     private function getVersion()
     {
         return 0;
+    }
+
+    public static function share(array $params = [])
+    {
+        Yii::$app->params[static::$SHARE_KEY] = $params;
+    }
+
+    public static function getShared(): array
+    {
+        $shared = [];
+        if (isset(Yii::$app->params[static::$SHARE_KEY])) {
+            $shared = Yii::$app->params[static::$SHARE_KEY];
+        }
+        return $shared;
     }
 
 }

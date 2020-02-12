@@ -2,12 +2,13 @@
 
 namespace app\controllers;
 
-use inertia\Controller;
+use app\filters\SharedDataFilter;
+use app\models\LoginForm;
+use inertia\web\Controller;
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
+use yii\web\Response;
 
 class SiteController extends Controller
 {
@@ -19,23 +20,26 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
+            [
                 'class' => AccessControl::className(),
                 'only' => ['index', 'logout'],
                 'rules' => [
                     [
                         'actions' => ['index', 'logout'],
                         'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
+                        'roles' => ['@']
+                    ]
+                ]
             ],
-            'verbs' => [
+            [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
-                ],
+                    'logout' => ['post']
+                ]
             ],
+            [
+                'class' => SharedDataFilter::class
+            ]
         ];
     }
 

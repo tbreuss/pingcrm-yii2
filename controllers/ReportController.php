@@ -2,10 +2,11 @@
 
 namespace app\controllers;
 
-use inertia\Controller;
+use app\filters\SharedDataFilter;
+use inertia\web\Controller;
 use yii\filters\AccessControl;
 
-class ReportsController extends Controller
+class ReportController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -13,14 +14,17 @@ class ReportsController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
+            [
                 'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
-                    ],
+                        'roles' => ['@']
+                    ]
                 ]
+            ],
+            [
+                'class' => SharedDataFilter::class
             ]
         ];
     }
