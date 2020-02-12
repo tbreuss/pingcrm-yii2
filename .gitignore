@@ -33,5 +33,5 @@ tests/_support/_generated
 /.vagrant
 
 /node_modules
-/web/*.js
-/web/*.css
+/web/js/*.js
+/web/css/*.css

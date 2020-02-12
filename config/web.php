@@ -50,13 +50,23 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'contacts' => 'contact/index',
+                'GET contacts' => 'contact/index',
                 'login' => 'site/login',
                 'logout' => 'site/logout',
-                'organizations' => 'organization/index',
+
+                // Organizations
+                'GET organizations' => 'organization/index',
+                'POST organizations' => 'organization/insert',
+                'GET organizations/create' => 'organization/create',
+                'GET organizations/<id:\d+>/edit' => 'organization/edit',
+                'PUT organizations/<id:\d+>' => 'organization/update',
+                'DELETE organizations/<id:\d+>' => 'organization/delete',
+                'PUT organizations/<id:\d+>/restore' => 'organization/restore',
+
                 'reports' => 'report/index',
                 'users/<id:\d+>/edit' => 'user/edit',
-                'users' => 'user/index'
+                'users' => 'user/index',
+                '500' => 'site/500'
             ],
         ]
     ],

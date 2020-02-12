@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
@@ -21,7 +22,7 @@ use yii\web\IdentityInterface;
  * @property string|null $updated_at
  * @property string|null $deleted_at
  */
-class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
+class User extends ActiveRecord implements IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -68,6 +69,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'updated_at' => 'Updated At',
             'deleted_at' => 'Deleted At',
         ];
+    }
+
+    public function getAccount()
+    {
+        return $this->hasOne(Account::class, ['id' => 'account_id']);
     }
 
     /**

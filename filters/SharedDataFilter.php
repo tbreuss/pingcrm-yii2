@@ -45,8 +45,8 @@ class SharedDataFilter extends ActionFilter
             'email' => $user->email,
             'role' => null,
             'account' => [
-                'id' => 1,
-                'name' => "Acme Corporation"
+                'id' => $user->account->id,
+                'name' => $user->account->name
             ],
         ];
 

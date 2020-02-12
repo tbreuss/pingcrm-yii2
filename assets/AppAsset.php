@@ -23,7 +23,7 @@ class AppAsset extends AssetBundle
     public function init()
     {
         parent::init();
-        $this->css[] = YII_ENV === 'dev' ? 'app.css' : 'app.min.css';
-        $this->js[] = YII_ENV === 'dev' ? 'app.js' : 'app.min.js';
+        $this->css[] = YII_ENV === 'dev' ? 'css/app.css' : 'css/app.min.css';
+        $this->js[] = YII_ENV === 'dev' ? 'js/app.js' : 'js/app.min.js';
     }
 }

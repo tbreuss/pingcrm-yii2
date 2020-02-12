@@ -103,4 +103,9 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
+    public function action500()
+    {
+        echo $fail;
+    }
 }

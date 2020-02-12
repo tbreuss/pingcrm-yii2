@@ -19,6 +19,9 @@ class Bootstrap implements BootstrapInterface
     {
         Yii::setAlias('@inertia', __DIR__);
 
+        // Unset header since at least yii\web\ErrorAction is testing it
+        // Yii::$app->request->headers->set('X-Requested-With', null);
+
         Yii::$app->response->on(Response::EVENT_BEFORE_SEND, [$this, 'handleResponse']);
     }
 

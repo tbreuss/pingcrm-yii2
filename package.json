@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --config webpack.config.js",
     "prod": "webpack --config webpack.config.js --optimize-minimize --mode production",
-    "css-dev": "cross-env NODE_ENV=development postcss resources/css/app.css -o web/app.css"
+    "css-dev": "cross-env NODE_ENV=development postcss resources/css/app.css -o web/css/app.css"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,6 @@
   "dependencies": {
     "@inertiajs/inertia": "^0.1.7",
     "@inertiajs/inertia-vue": "^0.1.2",
-    "autoprefixer": "^9.7.4",
     "lodash": "^4.17.15",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
@@ -35,10 +34,12 @@
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^2.0.6",
+    "autoprefixer": "^9.7.4",
     "cross-env": "^7.0.0",
     "css-loader": "^3.4.2",
     "cssnano": "^4.1.10",
     "postcss-cli": "^7.1.0",
+    "postcss-import": "^12.0.1",
     "style-loader": "^1.1.3",
     "vue-loader": "^15.8.3",
     "vue-style-loader": "^4.1.2",
