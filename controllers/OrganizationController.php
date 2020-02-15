@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\filters\SharedDataFilter;
+use app\helpers\PaginationHelper;
 use app\models\Organization;
 use inertia\web\Controller;
 use Yii;
@@ -33,32 +34,52 @@ class OrganizationController extends Controller
         ];
     }
 
-    public function actionIndex()
+    /**
+     * @param string $search
+     * @param string $trashed
+     * @param string $remember
+     * @param int $page
+     * @return array|string
+     */
+    public function actionIndex($search = null, $trashed = null, $remember = null, $page = 1)
     {
-        $organizations = Organization::find()
-            ->select('id, name, phone, city, deleted_at')
-            ->asArray()
-            ->all();
+        if ($remember === 'forget') {
+            $search = null;
+            $trashed = null;
+        }
 
-        $params = [
+        $dataProvider = Organization::findByParams($search, $trashed);
+
+        return $this->inertia('Organizations/Index', [
             'filters' => [
-                'search' => null,
-                'trashable' => null
+                'search' => $search,
+                'trashable' => $trashed,
             ],
             'organizations' => [
-                'data' => $organizations,
-                'links' => []
+                'data' => $dataProvider->getModels(),
+                'links' => PaginationHelper::getLinks(
+                    $dataProvider->getPagination(),
+                    'index',
+                    $search,
+                    $trashed,
+                    $page
+                ),
             ]
-        ];
-
-        return $this->inertia('Organizations/Index', $params);
+        ]);
     }
 
+    /**
+     * @return array|string
+     */
     public function actionCreate()
     {
         return $this->inertia('Organizations/Create');
     }
 
+    /**
+     * @param int $id
+     * @return array|string
+     */
     public function actionEdit($id)
     {
         $organization = Organization::findById($id);
@@ -67,10 +88,13 @@ class OrganizationController extends Controller
         ]);
     }
 
+    /**
+     * @return \yii\web\Response
+     */
     public function actionInsert()
     {
         $params = Yii::$app->request->post();
-        $organization = Organization::createFromArray($params);
+        $organization = Organization::fromArray($params);
         if ($organization->save()) {
             Yii::$app->session->setFlash('success', 'Organization created.');
             return $this->redirect(['organization/index']);
@@ -79,12 +103,26 @@ class OrganizationController extends Controller
         return $this->redirect(['organization/create']);
     }
 
+    /**
+     * @param int $id
+     * @return \yii\web\Response
+     */
     public function actionUpdate($id)
     {
-        Yii::$app->session->setFlash('success', 'Organization updated.');
+        $organization = Organization::findOne($id);
+        $organization->attributes = Yii::$app->request->post();
+        if ($organization->save()) {
+            Yii::$app->session->setFlash('success', 'Organization updated.');
+            return $this->redirect(['organization/edit', 'id' => $id]);
+        }
+        Yii::$app->session->setFlash('errors', $organization->getErrors());
         return $this->redirect(['organization/edit', 'id' => $id]);
     }
 
+    /**
+     * @param int $id
+     * @return \yii\web\Response
+     */
     public function actionDelete($id)
     {
         if (Organization::deleteById($id) > 0) {
@@ -93,6 +131,10 @@ class OrganizationController extends Controller
         return $this->redirect(['organization/edit', 'id' => $id]);
     }
 
+    /**
+     * @param int $id
+     * @return \yii\web\Response
+     */
     public function actionRestore($id)
     {
         if (Organization::restoreById($id) > 0) {
@@ -100,4 +142,5 @@ class OrganizationController extends Controller
         }
         return $this->redirect(['organization/edit', 'id' => $id]);
     }
+
 }

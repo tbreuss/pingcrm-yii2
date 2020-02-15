@@ -4,7 +4,9 @@ namespace app\models;
 
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\data\ActiveDataProvider;
 use yii\db\ActiveRecord;
+use yii\db\Query;
 
 /**
  * This is the model class for table "organizations".
@@ -73,11 +75,17 @@ class Organization extends ActiveRecord
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getContacts()
     {
         return $this->hasMany(Contact::class, ['organization_id' => 'id']);
     }
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -92,12 +100,16 @@ class Organization extends ActiveRecord
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'account_id'
                 ],
                 'value' => function () {
-                    return 1;
+                    return 1; // TODO return real value
                 }
             ]
         ];
     }
 
+    /**
+     * @param int $id
+     * @return Organization|null
+     */
     public static function findById($id)
     {
         return static::find()
@@ -108,13 +120,23 @@ class Organization extends ActiveRecord
             ->one();
     }
 
-    public static function createFromArray(array $params = [])
+    /**
+     * @param array $params
+     * @return Organization
+     */
+    public static function fromArray(array $params = [])
     {
         $organization = new static();
         $organization->attributes = $params;
         return $organization;
     }
 
+    /**
+     * @param int $id
+     * @return false|int
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
     public static function deleteById($id)
     {
         $organization = static::findOne($id);
@@ -122,11 +144,60 @@ class Organization extends ActiveRecord
         return $organization->update(false, ['deleted_at']);
     }
 
+    /**
+     * @param int $id
+     * @return false|int
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
     public static function restoreById($id)
     {
         $organization = static::findOne($id);
         $organization->deleted_at = null;
         return $organization->update(false, ['deleted_at']);
+    }
+
+    /**
+     * @param string $search
+     * @param string $trashed
+     * @return ActiveDataProvider
+     */
+    public static function findByParams($search = null, $trashed = null)
+    {
+        $query = (new Query())
+            ->select('id, name, phone, city, deleted_at')
+            ->from('organizations');
+
+        if (!empty($search)) {
+            $query->andWhere(['like', 'name', $search]);
+        }
+
+        if ($trashed === 'with') {
+        } elseif ($trashed === 'only') {
+            $query->andWhere(['not', ['deleted_at' => null]]);
+        } else {
+            $query->andWhere(['deleted_at' => null]);
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $dataProvider;
+    }
+
+    public static function getPairs()
+    {
+        $pairs = (new Query())
+            ->select('id, name')
+            ->from('organizations')
+            ->orderBy('name')
+            ->where(['deleted_at' => null])
+            ->all();
+        return $pairs;
     }
 
 }

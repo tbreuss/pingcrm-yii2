@@ -50,9 +50,17 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'GET contacts' => 'contact/index',
                 'login' => 'site/login',
                 'logout' => 'site/logout',
+
+                // Contacts
+                'GET contacts' => 'contact/index',
+                'POST contacts' => 'contact/insert',
+                'GET contacts/create' => 'contact/create',
+                'GET contacts/<id:\d+>/edit' => 'contact/edit',
+                'PUT contacts/<id:\d+>' => 'contact/update',
+                'DELETE contacts/<id:\d+>' => 'contact/delete',
+                'PUT contacts/<id:\d+>/restore' => 'contact/restore',
 
                 // Organizations
                 'GET organizations' => 'organization/index',

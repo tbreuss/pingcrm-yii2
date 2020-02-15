@@ -3,6 +3,11 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\AttributeBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\data\ActiveDataProvider;
+use yii\db\ActiveRecord;
+use yii\db\Query;
 
 /**
  * This is the model class for table "contacts".
@@ -39,7 +44,7 @@ class Contact extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'first_name', 'last_name'], 'required'],
+            [['first_name', 'last_name'], 'required'],
             [['account_id', 'organization_id'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['first_name', 'last_name', 'postal_code'], 'string', 'max' => 25],
@@ -71,5 +76,114 @@ class Contact extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'deleted_at' => 'Deleted At',
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'value' => date('Y-m-d H:i:s')
+            ],
+            [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'account_id',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'account_id'
+                ],
+                'value' => function () {
+                    return 1; // TODO return real value
+                }
+            ]
+        ];
+    }
+
+    /**
+     * @param array $params
+     * @return Organization
+     */
+    public static function fromArray(array $params = [])
+    {
+        $organization = new static();
+        $organization->attributes = $params;
+        return $organization;
+    }
+
+    /**
+     * @param int $id
+     * @return Organization|null
+     */
+    public static function findById($id)
+    {
+        return static::find()
+            ->select('id, first_name, last_name, organization_id, email, phone, address, city, region, country, postal_code, deleted_at')
+            ->where('id=:id', ['id' => $id])
+            ->asArray()
+            ->one();
+    }
+
+    /**
+     * @param int $id
+     * @return false|int
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public static function deleteById($id)
+    {
+        $organization = static::findOne($id);
+        $organization->deleted_at = date('Y-m-d H:i:s');
+        return $organization->update(false, ['deleted_at']);
+    }
+
+    /**
+     * @param int $id
+     * @return false|int
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public static function restoreById($id)
+    {
+        $organization = static::findOne($id);
+        $organization->deleted_at = null;
+        return $organization->update(false, ['deleted_at']);
+    }
+
+    /**
+     * @param string $search
+     * @param string $trashed
+     * @return ActiveDataProvider
+     */
+    public static function findByParams($search = null, $trashed = null)
+    {
+        $query = (new Query())
+            ->select('contacts.id, contacts.first_name, contacts.last_name, contacts.phone, contacts.city, contacts.deleted_at, organizations.name AS organization_name')
+            ->from('contacts')
+            ->leftJoin('organizations', 'organizations.id = contacts.organization_id');
+
+        if (!empty($search)) {
+            $query->andWhere(['like', 'contacts.first_name', $search]);
+            $query->orWhere(['like', 'contacts.last_name', $search]);
+        }
+
+        if ($trashed === 'with') {
+        } elseif ($trashed === 'only') {
+            $query->andWhere(['not', ['contacts.deleted_at' => null]]);
+        } else {
+            $query->andWhere(['contacts.deleted_at' => null]);
+        }
+
+        $query->orderBy('contacts.last_name ASC, contacts.first_name');
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $dataProvider;
     }
 }
