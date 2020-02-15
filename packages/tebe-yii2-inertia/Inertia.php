@@ -14,6 +14,11 @@ class Inertia implements BootstrapInterface
 
     public $view = '@inertia/views/inertia';
 
+    public $assetsDirs = [
+        '@webroot/css',
+        '@webroot/js'
+    ];
+
     /**
      * @param Application $app
      */
@@ -50,10 +55,6 @@ class Inertia implements BootstrapInterface
             if ($request->headers->has('X-Inertia-Version')) {
                 $version = $request->headers->get('X-Inertia-Version', null, true);
                 if ($version !== $this->getVersion()) {
-                    if (Yii::$app->session->isActive) {
-                        // Not needed in Yii2?
-                        // $request->session()->reflash();
-                    }
                     $response->setStatusCode(409);
                     $response->headers->set('X-Inertia-Location', $request->getAbsoluteUrl());
                 }
@@ -76,9 +77,17 @@ class Inertia implements BootstrapInterface
 
     }
 
+    /**
+     * @return string
+     * @todo optimize by using webpack build info
+     */
     public function getVersion()
     {
-        return '7f3cb61fee99321d705f22f5e215f10d';
+        $hashes = [];
+        foreach ($this->assetsDirs as $assetDir) {
+            $hashes[] = $this->hashDirectory(Yii::getAlias($assetDir));
+        }
+        return md5(implode('', $hashes));
     }
 
     public function share(array $params = [])
@@ -93,6 +102,29 @@ class Inertia implements BootstrapInterface
             $shared = Yii::$app->params[static::$SHARE_KEY];
         }
         return $shared;
+    }
+
+    /**
+     * Generate an MD5 hash string from the contents of a directory.
+     *
+     * @param string $directory
+     * @return boolean|string
+     */
+    private function hashDirectory($directory)
+    {
+        $files = array();
+        $dir = dir($directory);
+        while (false !== ($file = $dir->read())) {
+            if ($file != '.' and $file != '..') {
+                if (is_dir($directory . '/' . $file)) {
+                    $files[] = $this->hashDirectory($directory . '/' . $file);
+                } else {
+                    $files[] = md5_file($directory . '/' . $file);
+                }
+            }
+        }
+        $dir->close();
+        return md5(implode('', $files));
     }
 
 }
