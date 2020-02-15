@@ -6,7 +6,7 @@ use app\filters\SharedDataFilter;
 use app\helpers\PaginationHelper;
 use app\models\Contact;
 use app\models\Organization;
-use inertia\web\Controller;
+use tebe\inertia\web\Controller;
 use Yii;
 use yii\filters\AccessControl;
 

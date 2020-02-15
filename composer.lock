@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e52a333a457e82091b0a5006910636d",
+    "content-hash": "6fac8b8fd693c24e6c00678c0d29f6d8",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -32,7 +32,7 @@
             "version": "3.4.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
             },
             "dist": {
@@ -357,27 +357,6 @@
                 "fixtures"
             ],
             "time": "2019-12-12T13:22:17+00:00"
-        },
-        {
-            "name": "inertia/yii2",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "packages/inertia-yii2",
-                "reference": "a397ceadce8fafe2c386f8bbe570ed9e3c881b43"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "bootstrap": "inertia\\Bootstrap"
-            },
-            "autoload": {
-                "classmap": [
-                    "."
-                ]
-            },
-            "transport-options": {
-                "symlink": true
-            }
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -714,6 +693,24 @@
             ],
             "description": "Simple to use PHP db seeding tool that uses faker generators",
             "time": "2015-10-11T21:40:43+00:00"
+        },
+        {
+            "name": "tebe/yii2-inertia",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "packages/tebe-yii2-inertia",
+                "reference": "05296fe01d1d68e1f166c8fe8316d5743361e3cd"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "tebe\\inertia\\": ""
+                }
+            },
+            "transport-options": {
+                "symlink": true
+            }
         },
         {
             "name": "yiisoft/yii2",
@@ -4103,7 +4100,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "inertia/yii2": 20
+        "tebe/yii2-inertia": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

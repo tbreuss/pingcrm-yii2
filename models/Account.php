@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "accounts".
@@ -12,7 +12,7 @@ use Yii;
  * @property string|null $created_at
  * @property string|null $updated_at
  */
-class Account extends \yii\db\ActiveRecord
+class Account extends ActiveRecord
 {
     /**
      * {@inheritdoc}

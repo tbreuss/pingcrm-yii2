@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\filters\SharedDataFilter;
 use app\models\LoginForm;
-use inertia\web\Controller;
+use tebe\inertia\web\Controller;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;

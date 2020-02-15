@@ -1,8 +1,7 @@
 <?php
 
-namespace inertia\web;
+namespace tebe\inertia\web;
 
-use inertia\Bootstrap;
 use Yii;
 
 class Controller extends \yii\web\Controller
@@ -20,7 +19,8 @@ class Controller extends \yii\web\Controller
             return $params;
         }
 
-        return $this->render('@inertia/views/inertia', [
+        $view = Yii::$app->get('inertia')->view;
+        return $this->render($view, [
             'page' => $params
         ]);
     }
@@ -28,7 +28,7 @@ class Controller extends \yii\web\Controller
     private function getProps($params = [])
     {
         return array_merge(
-            Bootstrap::getShared(),
+            Yii::$app->get('inertia')->getShared(),
             $params
         );
     }
@@ -41,6 +41,6 @@ class Controller extends \yii\web\Controller
 
     private function getVersion()
     {
-        return '7f3cb61fee99321d705f22f5e215f10d';
+        return Yii::$app->get('inertia')->getVersion();
     }
 }

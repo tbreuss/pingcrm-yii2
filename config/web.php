@@ -6,7 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'inertia'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -75,7 +75,10 @@ $config = [
                 'users/<id:\d+>/edit' => 'user/edit',
                 'users' => 'user/index',
                 '500' => 'site/500'
-            ],
+            ]
+        ],
+        'inertia' => [
+            'class' => 'tebe\inertia\Inertia'
         ]
     ],
     'params' => $params,

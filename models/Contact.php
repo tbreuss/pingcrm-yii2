@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
@@ -28,7 +27,7 @@ use yii\db\Query;
  * @property string|null $updated_at
  * @property string|null $deleted_at
  */
-class Contact extends \yii\db\ActiveRecord
+class Contact extends ActiveRecord
 {
     /**
      * {@inheritdoc}

@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\filters\SharedDataFilter;
-use inertia\web\Controller;
+use tebe\inertia\web\Controller;
 use yii\filters\AccessControl;
 
 class ReportController extends Controller

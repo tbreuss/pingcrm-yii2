@@ -3,7 +3,6 @@
 namespace app\filters;
 
 use app\models\User;
-use inertia\Bootstrap;
 use Yii;
 use yii\base\ActionFilter;
 
@@ -23,7 +22,7 @@ class SharedDataFilter extends ActionFilter
             ]
         ];
 
-        Bootstrap::share($shared);
+        Yii::$app->get('inertia')->share($shared);
 
         return true;
     }

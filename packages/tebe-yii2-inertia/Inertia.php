@@ -1,6 +1,6 @@
 <?php
 
-namespace inertia;
+namespace tebe\inertia;
 
 use Yii;
 use yii\base\Application;
@@ -8,9 +8,11 @@ use yii\base\BootstrapInterface;
 use yii\web\Request;
 use yii\web\Response;
 
-class Bootstrap implements BootstrapInterface
+class Inertia implements BootstrapInterface
 {
     private static $SHARE_KEY = '__inertia__';
+
+    public $view = '@inertia/views/inertia';
 
     /**
      * @param Application $app
@@ -52,8 +54,8 @@ class Bootstrap implements BootstrapInterface
                         // Not needed in Yii2?
                         // $request->session()->reflash();
                     }
-                    // $response->setStatusCode(409);
-                    // $response->headers->set('X-Inertia-Location', $request->getAbsoluteUrl());
+                    $response->setStatusCode(409);
+                    $response->headers->set('X-Inertia-Location', $request->getAbsoluteUrl());
                 }
             }
         }
@@ -74,17 +76,17 @@ class Bootstrap implements BootstrapInterface
 
     }
 
-    private function getVersion()
+    public function getVersion()
     {
-        return 0;
+        return '7f3cb61fee99321d705f22f5e215f10d';
     }
 
-    public static function share(array $params = [])
+    public function share(array $params = [])
     {
         Yii::$app->params[static::$SHARE_KEY] = $params;
     }
 
-    public static function getShared(): array
+    public function getShared()
     {
         $shared = [];
         if (isset(Yii::$app->params[static::$SHARE_KEY])) {
