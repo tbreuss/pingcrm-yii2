@@ -69,11 +69,8 @@
             "url": "https://asset-packagist.org"
         },
         {
-            "type": "path",
-            "url": "packages/tebe-yii2-inertia",
-            "options": {
-                "symlink": true
-            }
+            "type": "vcs",
+            "url": "https://github.com/tbreuss/yii2-inertia"
         }
     ]
 }
