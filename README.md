@@ -1,6 +1,6 @@
 # Ping CRM on Yii2
 
-A Yii2 demo application to illustrate how Inertia.js works. This is a port of the original [PingCRM written in Laravel](https://github.com/inertiajs/pingcrm). 
+A Yii2 demo application to illustrate how [Inertia.js](https://inertiajs.com) works. This is a port of the original [Ping CRM written in Laravel](https://github.com/inertiajs/pingcrm). 
 
 ![](screenshot.png)
 
