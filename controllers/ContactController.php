@@ -9,6 +9,8 @@ use app\models\Organization;
 use tebe\inertia\web\Controller;
 use Yii;
 use yii\filters\AccessControl;
+use yii\web\HttpException;
+use yii\web\Response;
 
 class ContactController extends Controller
 {
@@ -91,10 +93,14 @@ class ContactController extends Controller
     /**
      * @param int $id
      * @return array|string
+     * @throws HttpException
      */
     public function actionEdit($id)
     {
         $contact = Contact::findById($id);
+        if (is_null($contact)) {
+            throw new HttpException(404);
+        }
         return $this->inertia('Contacts/Edit', [
             'contact' => $contact,
             'organizations' => Organization::getPairs()
@@ -102,43 +108,52 @@ class ContactController extends Controller
     }
 
     /**
-     * @return \yii\web\Response
+     * @return Response
      */
     public function actionInsert()
     {
         $params = Yii::$app->request->post();
-        $organization = Contact::fromArray($params);
-        if ($organization->save()) {
+        $contact = Contact::fromArray($params);
+        if ($contact->save()) {
             Yii::$app->session->setFlash('success', 'Contact created.');
             return $this->redirect(['contact/index']);
         }
-        Yii::$app->session->setFlash('errors', $organization->getErrors());
+        Yii::$app->session->setFlash('errors', $contact->getErrors());
         return $this->redirect(['contact/create']);
     }
 
     /**
      * @param int $id
-     * @return \yii\web\Response
+     * @return Response
+     * @throws HttpException
      */
     public function actionUpdate($id)
     {
-        $organization = Contact::findOne($id);
-        $organization->attributes = Yii::$app->request->post();
-        if ($organization->save()) {
+        $contact = Contact::findOne($id);
+        if (is_null($contact)) {
+            throw new HttpException(404);
+        }
+        $contact->attributes = Yii::$app->request->post();
+        if ($contact->save()) {
             Yii::$app->session->setFlash('success', 'Contact updated.');
             return $this->redirect(['contact/edit', 'id' => $id]);
         }
-        Yii::$app->session->setFlash('errors', $organization->getErrors());
+        Yii::$app->session->setFlash('errors', $contact->getErrors());
         return $this->redirect(['contact/edit', 'id' => $id]);
     }
 
     /**
      * @param int $id
-     * @return \yii\web\Response
+     * @return Response
+     * @throws HttpException
      */
     public function actionDelete($id)
     {
-        if (Contact::deleteById($id) > 0) {
+        $contact = Contact::findOne($id);
+        if (is_null($contact)) {
+            throw new HttpException(404);
+        }
+        if ($contact->delete() > 0) {
             Yii::$app->session->setFlash('success', 'Contact deleted.');
         }
         return $this->redirect(['contact/edit', 'id' => $id]);
@@ -146,11 +161,16 @@ class ContactController extends Controller
 
     /**
      * @param int $id
-     * @return \yii\web\Response
+     * @return Response
+     * @throws HttpException
      */
     public function actionRestore($id)
     {
-        if (Contact::restoreById($id) > 0) {
+        $contact = Contact::findOne($id);
+        if (is_null($contact)) {
+            throw new HttpException(404);
+        }
+        if ($contact->restore() > 0) {
             Yii::$app->session->setFlash('success', 'Contact restored.');
         }
         return $this->redirect(['contact/edit', 'id' => $id]);

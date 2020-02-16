@@ -65,7 +65,7 @@ class DbController extends Controller
             'last_name' => $faker->lastName,
             'email' => $faker->unique()->safeEmail,
             'password' => 'secret',
-            'owner' => 0,
+            'owner' => '0',
             'remember_token' => $faker->regexify('[A-Za-z0-9]{10}'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')

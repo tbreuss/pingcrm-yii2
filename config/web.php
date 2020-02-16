@@ -71,9 +71,16 @@ $config = [
                 'DELETE organizations/<id:\d+>' => 'organization/delete',
                 'PUT organizations/<id:\d+>/restore' => 'organization/restore',
 
+                // Users
+                'GET users' => 'user/index',
+                'POST users' => 'user/insert',
+                'GET users/create' => 'user/create',
+                'GET users/<id:\d+>/edit' => 'user/edit',
+                'PUT users/<id:\d+>' => 'user/update',
+                'DELETE users/<id:\d+>' => 'user/delete',
+                'PUT users/<id:\d+>/restore' => 'user/restore',
+
                 'reports' => 'report/index',
-                'users/<id:\d+>/edit' => 'user/edit',
-                'users' => 'user/index',
                 '500' => 'site/500'
             ]
         ],

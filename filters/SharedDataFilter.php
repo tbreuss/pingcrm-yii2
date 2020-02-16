@@ -4,10 +4,18 @@ namespace app\filters;
 
 use app\models\User;
 use Yii;
+use yii\base\Action;
 use yii\base\ActionFilter;
+use yii\base\InvalidConfigException;
 
 class SharedDataFilter extends ActionFilter
 {
+    /**
+     * @param Action $action
+     * @return bool
+     * @throws InvalidConfigException
+     * @throws \Throwable
+     */
     public function beforeAction($action)
     {
         $shared = [
@@ -27,6 +35,10 @@ class SharedDataFilter extends ActionFilter
         return true;
     }
 
+    /**
+     * @return array|null
+     * @throws \Throwable
+     */
     private function getUser()
     {
         $webUser = Yii::$app->getUser();
@@ -52,6 +64,9 @@ class SharedDataFilter extends ActionFilter
         return $return;
     }
 
+    /**
+     * @return array
+     */
     private function getFlashMessages()
     {
         $flash = [
@@ -67,6 +82,9 @@ class SharedDataFilter extends ActionFilter
         return $flash;
     }
 
+    /**
+     * @return object
+     */
     private function getErrors()
     {
         $errors = [];

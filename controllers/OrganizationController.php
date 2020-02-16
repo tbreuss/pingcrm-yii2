@@ -8,6 +8,8 @@ use app\models\Organization;
 use tebe\inertia\web\Controller;
 use Yii;
 use yii\filters\AccessControl;
+use yii\web\HttpException;
+use yii\web\Response;
 
 class OrganizationController extends Controller
 {
@@ -79,17 +81,21 @@ class OrganizationController extends Controller
     /**
      * @param int $id
      * @return array|string
+     * @throws HttpException
      */
     public function actionEdit($id)
     {
         $organization = Organization::findById($id);
+        if (is_null($organization)) {
+            throw new HttpException(404);
+        }
         return $this->inertia('Organizations/Edit', [
             'organization' => $organization
         ]);
     }
 
     /**
-     * @return \yii\web\Response
+     * @return Response
      */
     public function actionInsert()
     {
@@ -105,11 +111,15 @@ class OrganizationController extends Controller
 
     /**
      * @param int $id
-     * @return \yii\web\Response
+     * @return Response
+     * @throws HttpException
      */
     public function actionUpdate($id)
     {
         $organization = Organization::findOne($id);
+        if (is_null($organization)) {
+            throw new HttpException(404);
+        }
         $organization->attributes = Yii::$app->request->post();
         if ($organization->save()) {
             Yii::$app->session->setFlash('success', 'Organization updated.');
@@ -121,11 +131,16 @@ class OrganizationController extends Controller
 
     /**
      * @param int $id
-     * @return \yii\web\Response
+     * @return Response
+     * @throws HttpException
      */
     public function actionDelete($id)
     {
-        if (Organization::deleteById($id) > 0) {
+        $organization = Organization::findOne($id);
+        if (is_null($organization)) {
+            throw new HttpException(404);
+        }
+        if ($organization->delete() > 0) {
             Yii::$app->session->setFlash('success', 'Organization deleted.');
         }
         return $this->redirect(['organization/edit', 'id' => $id]);
@@ -133,11 +148,16 @@ class OrganizationController extends Controller
 
     /**
      * @param int $id
-     * @return \yii\web\Response
+     * @return Response
+     * @throws HttpException
      */
     public function actionRestore($id)
     {
-        if (Organization::restoreById($id) > 0) {
+        $organization = Organization::findOne($id);
+        if (is_null($organization)) {
+            throw new HttpException(404);
+        }
+        if ($organization->restore() > 0) {
             Yii::$app->session->setFlash('success', 'Organization restored.');
         }
         return $this->redirect(['organization/edit', 'id' => $id]);

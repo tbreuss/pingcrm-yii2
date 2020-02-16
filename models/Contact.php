@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\traits\SoftDeleteTrait;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
@@ -29,6 +30,8 @@ use yii\db\Query;
  */
 class Contact extends ActiveRecord
 {
+    use SoftDeleteTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -122,32 +125,6 @@ class Contact extends ActiveRecord
             ->where('id=:id', ['id' => $id])
             ->asArray()
             ->one();
-    }
-
-    /**
-     * @param int $id
-     * @return false|int
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     */
-    public static function deleteById($id)
-    {
-        $organization = static::findOne($id);
-        $organization->deleted_at = date('Y-m-d H:i:s');
-        return $organization->update(false, ['deleted_at']);
-    }
-
-    /**
-     * @param int $id
-     * @return false|int
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     */
-    public static function restoreById($id)
-    {
-        $organization = static::findOne($id);
-        $organization->deleted_at = null;
-        return $organization->update(false, ['deleted_at']);
     }
 
     /**

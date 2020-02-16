@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\traits\SoftDeleteTrait;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
@@ -27,6 +28,8 @@ use yii\db\Query;
  */
 class Organization extends ActiveRecord
 {
+    use SoftDeleteTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -132,32 +135,6 @@ class Organization extends ActiveRecord
     }
 
     /**
-     * @param int $id
-     * @return false|int
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     */
-    public static function deleteById($id)
-    {
-        $organization = static::findOne($id);
-        $organization->deleted_at = date('Y-m-d H:i:s');
-        return $organization->update(false, ['deleted_at']);
-    }
-
-    /**
-     * @param int $id
-     * @return false|int
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     */
-    public static function restoreById($id)
-    {
-        $organization = static::findOne($id);
-        $organization->deleted_at = null;
-        return $organization->update(false, ['deleted_at']);
-    }
-
-    /**
      * @param string $search
      * @param string $trashed
      * @return ActiveDataProvider
@@ -189,6 +166,9 @@ class Organization extends ActiveRecord
         return $dataProvider;
     }
 
+    /**
+     * @return array
+     */
     public static function getPairs()
     {
         $pairs = (new Query())

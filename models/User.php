@@ -2,7 +2,12 @@
 
 namespace app\models;
 
+use app\traits\SoftDeleteTrait;
+use yii\behaviors\AttributeBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\data\ActiveDataProvider;
 use yii\db\ActiveRecord;
+use yii\db\Query;
 use yii\web\IdentityInterface;
 
 /**
@@ -23,6 +28,8 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    use SoftDeleteTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -67,6 +74,29 @@ class User extends ActiveRecord implements IdentityInterface
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'deleted_at' => 'Deleted At',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'value' => date('Y-m-d H:i:s')
+            ],
+            [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'account_id',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'account_id'
+                ],
+                'value' => function () {
+                    return 1; // TODO return real value
+                }
+            ]
         ];
     }
 
@@ -164,4 +194,61 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return false;
     }
+
+    public static function findById($id)
+    {
+        return static::find()
+            ->select('id, first_name, last_name, email, owner, photo_path, deleted_at')
+            ->where('id=:id', ['id' => $id])
+            ->asArray()
+            ->one();
+    }
+
+    public static function findByParams($search = null, $role = null, $trashed = null)
+    {
+        $query = (new Query())
+            ->select('id, first_name, last_name, email, owner, photo_path, deleted_at')
+            ->from('users');
+
+        if (!empty($search)) {
+            $query->andWhere(['like', 'first_name', $search]);
+            $query->orWhere(['like', 'last_name', $search]);
+        }
+
+        if ($role === 'user') {
+            $query->andWhere(['owner' => '0']);
+        } elseif ($role === 'owner') {
+            $query->andWhere(['owner' => '1']);
+        }
+
+        if ($trashed === 'with') {
+        } elseif ($trashed === 'only') {
+            $query->andWhere(['not', ['deleted_at' => null]]);
+        } else {
+            $query->andWhere(['deleted_at' => null]);
+        }
+
+        $query->orderBy('last_name ASC, first_name ASC');
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 100000,
+            ],
+        ]);
+
+        return $dataProvider;
+    }
+
+    /**
+     * @param array $params
+     * @return User
+     */
+    public static function fromArray(array $params = [])
+    {
+        $user = new static();
+        $user->attributes = $params;
+        return $user;
+    }
+
 }

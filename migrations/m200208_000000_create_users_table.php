@@ -19,7 +19,7 @@ class m200208_000000_create_users_table extends Migration
             'last_name' => $this->string(25)->notNull(),
             'email' => $this->string(50)->unique(),
             'password' => $this->string()->null(),
-            'owner' => $this->boolean()->defaultValue(false),
+            'owner' => $this->integer(1)->defaultValue(0),
             'photo_path' => $this->string(100)->null(),
             'remember_token' => $this->string()->null(),
             'created_at' => $this->dateTime()->null(),
