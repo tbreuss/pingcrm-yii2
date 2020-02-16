@@ -1,6 +1,8 @@
-# Ping CRM on Yii2
+# Ping CRM on Yii 2
 
-A Yii2 demo application to illustrate how [Inertia.js](https://inertiajs.com) works. This is a port of the original [Ping CRM written in Laravel](https://github.com/inertiajs/pingcrm). 
+A Yii 2 demo application to illustrate how [Inertia.js](https://inertiajs.com) works. 
+
+This application is a port of the original [Ping CRM written in Laravel](https://github.com/inertiajs/pingcrm) and based on the [Yii 2 Basic Project Template](https://github.com/yiisoft/yii2-app-basic). 
 
 ![](screenshot.png)
 
@@ -47,7 +49,7 @@ php yii migrate
 Run database seeder:
 
 ```sh
-php yii db:seed
+php yii db/seed
 ```
 
 Run the dev server (the output will give the address):
@@ -71,5 +73,10 @@ To run the Ping CRM tests, run:
 
 ## Credits
 
+- PHP >= 5.6.0
+- SQLite
+
+## Credits
+
 - Original work by Jonathan Reinink (@reinink) and contributors
-- Port to Yii2 by Thomas Breuss (@tbreuss)
+- Port to Yii 2 by Thomas Breuss (@tbreuss)
