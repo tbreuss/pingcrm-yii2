@@ -71,7 +71,7 @@ To run the Ping CRM tests, run:
 (to be done)
 ```
 
-## Credits
+## Requirements
 
 - PHP >= 5.6.0
 - SQLite
