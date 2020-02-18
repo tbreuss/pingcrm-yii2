@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\traits\SoftDeleteTrait;
+use app\components\SoftDeleteTrait;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;

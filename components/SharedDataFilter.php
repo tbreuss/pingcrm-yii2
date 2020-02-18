@@ -1,6 +1,6 @@
 <?php
 
-namespace app\filters;
+namespace app\components;
 
 use app\models\User;
 use Yii;

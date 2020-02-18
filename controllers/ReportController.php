@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\filters\SharedDataFilter;
+use app\components\SharedDataFilter;
 use tebe\inertia\web\Controller;
 use yii\filters\AccessControl;
 

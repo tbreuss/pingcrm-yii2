@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "84c72a3189371053e6bb2284c8363217",
+    "content-hash": "28b4bfbe2489f4e32785f96f83cc28eb",
     "packages": [
         {
             "name": "bower-asset/inputmask",
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/RobinHerbots/Inputmask.git",
+                "url": "git@github.com:RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -700,12 +700,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tbreuss/yii2-inertia.git",
-                "reference": "90b57f3068fafe7166f541dfe0c82268c13646e8"
+                "reference": "af670939db52458992247484492dced235dc83f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tbreuss/yii2-inertia/zipball/90b57f3068fafe7166f541dfe0c82268c13646e8",
-                "reference": "90b57f3068fafe7166f541dfe0c82268c13646e8",
+                "url": "https://api.github.com/repos/tbreuss/yii2-inertia/zipball/af670939db52458992247484492dced235dc83f2",
+                "reference": "af670939db52458992247484492dced235dc83f2",
                 "shasum": ""
             },
             "require": {
@@ -718,11 +718,12 @@
                     "tebe\\inertia\\": ""
                 }
             },
-            "support": {
-                "source": "https://github.com/tbreuss/yii2-inertia/tree/master",
-                "issues": "https://github.com/tbreuss/yii2-inertia/issues"
-            },
-            "time": "2020-02-16T13:30:09+00:00"
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "The Yii 2 adapter for Inertia.js",
+            "time": "2020-02-18T05:18:03+00:00"
         },
         {
             "name": "yiisoft/yii2",

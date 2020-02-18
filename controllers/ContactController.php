@@ -2,8 +2,8 @@
 
 namespace app\controllers;
 
-use app\filters\SharedDataFilter;
-use app\helpers\PaginationHelper;
+use app\components\SharedDataFilter;
+use app\components\PaginationHelper;
 use app\models\Contact;
 use app\models\Organization;
 use tebe\inertia\web\Controller;

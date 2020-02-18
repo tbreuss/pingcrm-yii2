@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\filters\SharedDataFilter;
+use app\components\SharedDataFilter;
 use app\models\User;
 use tebe\inertia\web\Controller;
 use Yii;
