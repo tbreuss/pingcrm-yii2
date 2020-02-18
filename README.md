@@ -74,6 +74,7 @@ To run the Ping CRM tests, run:
 ## Requirements
 
 - PHP >= 5.6.0
+- Node.js & NPM
 - SQLite
 
 ## Credits
