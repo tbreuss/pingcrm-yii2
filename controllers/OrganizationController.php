@@ -13,8 +13,6 @@ use yii\web\Response;
 
 class OrganizationController extends Controller
 {
-    public $enableCsrfValidation = false;
-
     /**
      * {@inheritdoc}
      */

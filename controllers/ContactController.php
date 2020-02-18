@@ -14,8 +14,6 @@ use yii\web\Response;
 
 class ContactController extends Controller
 {
-    public $enableCsrfValidation = false;
-
     /**
      * {@inheritdoc}
      */

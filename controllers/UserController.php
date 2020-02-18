@@ -12,8 +12,6 @@ use yii\web\Response;
 
 class UserController extends Controller
 {
-    public $enableCsrfValidation = false;
-
     /**
      * {@inheritdoc}
      */
