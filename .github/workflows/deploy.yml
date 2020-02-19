@@ -23,7 +23,10 @@ jobs:
       run: |
         php yii migrate/up --interactive 0
         php yii db/seed
-      
+
+    - name: Install no-dev dependencies
+      run: composer install --no-dev --prefer-dist --no-progress --no-suggest
+
     - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v1
       with:
