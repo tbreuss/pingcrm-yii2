@@ -74,6 +74,7 @@ class DbController extends Controller
         $seeder->refill();
 
         $user = new User();
+        $user->detachBehaviors();
         $user->attributes = [
             'account_id' => 1,
             'first_name' => 'John',
