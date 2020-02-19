@@ -35,5 +35,17 @@ jobs:
         npm install
         npm run prod
         npm run css-prod
-        
-        
+
+  deploy:
+    name: FTP-Deploy-Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Cleanup Directory
+        run: rm -rf tutorial .git .github src && rm .gitignore package.json README.md
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/FTP-Deploy-Action@master
+        env:
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
