@@ -21,7 +21,7 @@ jobs:
     
     - name: Migrations
       run: |
-        php yii migrate
+        php yii migrate/up --interactive 0
         php yii db/seed
       
     - name: Use Node.js ${{ env.NODE_VERSION }}
