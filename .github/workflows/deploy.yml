@@ -41,12 +41,12 @@ jobs:
     name: FTP-Deploy-Action
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Cleanup Directory
-        run: rm -rf tutorial .git .github src && rm .gitignore package.json README.md
-      - name: FTP-Deploy-Action
-        uses: SamKirkland/FTP-Deploy-Action@master
-        env:
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: 2        
+    - name: FTP-Deploy-Action
+      uses: SamKirkland/FTP-Deploy-Action@master
+      with:
+        ftp-server: ${{ secrets.FTP_SERVER }}
+        ftp-username: ${{ secrets.FTP_USERNAME }}
+        ftp-password: ${{ secrets.FTP_PASSWORD }}
