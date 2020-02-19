@@ -37,6 +37,7 @@ jobs:
         npm run css-prod
 
   deploy:
+    needs: build
     name: FTP-Deploy-Action
     runs-on: ubuntu-latest
     steps:
