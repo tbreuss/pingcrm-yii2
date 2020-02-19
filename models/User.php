@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\SoftDeleteTrait;
+use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
@@ -94,7 +95,7 @@ class User extends ActiveRecord implements IdentityInterface
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'account_id'
                 ],
                 'value' => function () {
-                    return 1; // TODO return real value
+                    return Yii::$app->user->getIdentity()->account_id;
                 }
             ]
         ];
