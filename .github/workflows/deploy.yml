@@ -1,0 +1,39 @@
+name: PHP Composer
+
+on: [push]
+
+env:
+  NODE_VERSION: '13.x'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Install dependencies
+      run: composer install --no-dev --prefer-dist --no-progress --no-suggest
+    
+    - name: Migrations
+      run: |
+        php yii migrate
+        php yii db/seed
+      
+    - name: Use Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: npm install, build
+      run: |
+        # Build and test the project, then
+        npm install
+        npm run prod
+        npm run css-prod
+        
+        
