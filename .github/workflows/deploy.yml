@@ -35,18 +35,10 @@ jobs:
         npm install
         npm run prod
         npm run css-prod
-
-  deploy:
-    needs: build
-    name: FTP-Deploy-Action
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-      with:
-        fetch-depth: 2        
+        
     - name: FTP-Deploy-Action
-      uses: SamKirkland/FTP-Deploy-Action@master
+      uses: SamKirkland/FTP-Deploy-Action@3.0.0
       with:
-        ftp-server: ${{ secrets.FTP_SERVER }}
-        ftp-username: ${{ secrets.FTP_USERNAME }}
+        ftp-server: ftp://ftp.samkirkland.com/
+        ftp-username: myFTPUsername
         ftp-password: ${{ secrets.FTP_PASSWORD }}
