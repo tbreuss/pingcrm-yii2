@@ -11,7 +11,7 @@
     "dev": "webpack --config webpack.config.js",
     "prod": "webpack --config webpack.config.js --optimize-minimize --mode production",
     "css-dev": "cross-env NODE_ENV=development postcss resources/css/app.css -o web/css/app.css",
-    "css-prod": "cross-env NODE_ENV=production postcss resources/css/app.css -o web/css/app.min.css"
+    "css-prod": "cross-env NODE_ENV=development postcss resources/css/app.css -o web/css/app.min.css"
   },
   "repository": {
     "type": "git",
