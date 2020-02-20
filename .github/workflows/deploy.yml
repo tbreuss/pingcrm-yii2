@@ -16,32 +16,36 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate
 
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+    - name: Install composer dependencies
+      run: composer install --no-dev --prefer-dist --no-progress --no-suggest
     
-    - name: Migrations
+    - name: Migrate database
       run: |
         php yii migrate/up --interactive 0
         php yii db/seed
-
-    - name: Install no-dev dependencies
-      run: composer install --no-dev --prefer-dist --no-progress --no-suggest
 
     - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ env.NODE_VERSION }}
 
-    - name: npm install, build
+    - name: Install npm dependencies and build JS and CSS
       run: |
-        # Build and test the project, then
         npm install
         npm run prod
         npm run css-prod
-        
-    - name: FTP-Deploy-Action
-      uses: SamKirkland/FTP-Deploy-Action@3.0.0
+
+    - name: Cleanup directory
+      run: |
+        rm -rf .* node_modules resources tests vagrant
+        rm *.js *.json *.md *.php *.png Vagrantfile
+
+    - name: Deploy to server via scp
+      uses: appleboy/scp-action@master
       with:
-        ftp-server: ${{ secrets.FTP_SERVER }}
-        ftp-username: ${{ secrets.FTP_USERNAME }}
-        ftp-password: ${{ secrets.FTP_PASSWORD }}
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: 22
+        source: "."
+        target: "/home/tbreusst/public_html/ch.tebe.pingcrm-yii2"
