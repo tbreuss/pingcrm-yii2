@@ -37,8 +37,8 @@ jobs:
 
     - name: Cleanup directory
       run: |
-        rm -rf .* node_modules resources tests vagrant
-        rm *.js *.json *.md *.php *.png Vagrantfile
+        rm -rf .git .github node_modules resources tests vagrant
+        rm .bowerrc .gitignore Vagrantfile *.js *.json *.php *.png *.yml
 
     - name: Deploy to server via scp
       uses: appleboy/scp-action@master
