@@ -8,7 +8,9 @@ use tebe\inertia\web\Controller;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 
 class SiteController extends Controller
 {
@@ -41,20 +43,18 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function actions()
+    public function actionError()
     {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
+        $this->layout = 'error';
+        if (($exception = Yii::$app->getErrorHandler()->exception) === null) {
+            $exception = new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+        }
+        Yii::$app->getResponse()->setStatusCodeByException($exception);
+        return $this->render('error', [
+            'name' => $exception->getName(),
+            'message' => $exception->getMessage(),
+            'exception' => $exception,
+        ]);
     }
 
     /**
@@ -104,6 +104,7 @@ class SiteController extends Controller
 
     public function action500()
     {
-        echo $fail;
+        sleep(1);
+        throw new ServerErrorHttpException('An unexpected error happend.');
     }
 }

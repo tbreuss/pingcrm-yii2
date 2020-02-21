@@ -9,19 +9,12 @@ use yii\helpers\Html;
 
 $this->title = $name;
 ?>
-<div class="site-error">
+<div class="flex-center position-ref full-height">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="code"><?= Html::encode($this->title) ?></div>
 
-    <div class="alert alert-danger">
+    <div class="message" style="padding: 10px;">
         <?= nl2br(Html::encode($message)) ?>
     </div>
-
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
 
 </div>
