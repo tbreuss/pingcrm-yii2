@@ -1,10 +1,16 @@
 # Ping CRM on Yii 2
 
-A Yii 2 demo application to illustrate how [Inertia.js](https://inertiajs.com) works. 
+A Yii 2 demo application to illustrate how [Inertia.js](https://inertiajs.com) works.
+
+With Inertia you are able to build single-page apps using classic server-side routing and controllers, without building an API. 
 
 This application is a port of the original [Ping CRM written in Laravel](https://github.com/inertiajs/pingcrm) and based on the [Yii 2 Basic Project Template](https://github.com/yiisoft/yii2-app-basic). 
 
 ![](screenshot.png)
+
+## Demo
+
+<http://pingcrm-yii2.tebe.ch>
 
 ## Installation
 
