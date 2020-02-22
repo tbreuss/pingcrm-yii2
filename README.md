@@ -10,7 +10,7 @@ This application is a port of the original [Ping CRM written in Laravel](https:/
 
 ## Demo
 
-<http://pingcrm-yii2.tebe.ch>
+<https://pingcrm-yii2.tebe.ch>
 
 ## Installation
 
