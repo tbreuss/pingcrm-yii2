@@ -32,8 +32,8 @@ jobs:
     - name: Install npm dependencies and build JS and CSS
       run: |
         npm install
-        npm run prod
-        npm run css-prod
+        npm run dev
+        npm run css-dev
 
     - name: Cleanup directory
       run: |
