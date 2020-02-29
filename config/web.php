@@ -86,7 +86,10 @@ $config = [
             ]
         ],
         'inertia' => [
-            'class' => 'tebe\inertia\Inertia'
+            'class' => 'tebe\inertia\Inertia',
+            'assetsDirs' => [
+                '@webroot/assets/inertia'
+            ]
         ]
     ],
     'params' => $params,

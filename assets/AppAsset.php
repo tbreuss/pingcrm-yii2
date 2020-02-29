@@ -12,7 +12,12 @@ class AppAsset extends AssetBundle
     public function init()
     {
         parent::init();
-        $this->css[] = YII_ENV === 'dev' ? 'css/app.css' : 'css/app.min.css';
-        $this->js[] = YII_ENV === 'dev' ? 'js/app.js' : 'js/app.min.js';
+        if (YII_ENV === 'dev') {
+            $this->css[] = 'assets/inertia/css/app.css';
+            $this->js[] = 'assets/inertia/js/app.js';
+        } else {
+            $this->css[] = 'assets/inertia/css/app.min.css';
+            $this->js[] = 'assets/inertia/js/app.min.js';
+        }
     }
 }

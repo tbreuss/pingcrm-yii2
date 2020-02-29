@@ -21,7 +21,7 @@ module.exports = (env, argv) => {
         ],
         output: {
             path: PATHS.build,
-            filename: config.production ? 'js/app.min.js' : 'js/app.js'
+            filename: config.production ? 'assets/inertia/js/app.min.js' : 'assets/inertia/js/app.js'
         },
         resolve: {
             extensions: ['.js', '.vue', '.json'],
