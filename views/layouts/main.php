@@ -13,7 +13,7 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-full bg-gray-200">
 <head>
-    <base href="/">
+    <base href="<?= Url::base(true) ?>">
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title><?= Html::encode($this->title) ?></title>
