@@ -1,3 +1,5 @@
+![Build & Deploy](https://github.com/tbreuss/pingcrm-yii2/workflows/Build%20&%20Deploy/badge.svg)
+
 # Ping CRM on Yii 2
 
 A Yii 2 demo application to illustrate how [Inertia.js](https://inertiajs.com) works.
