@@ -11,7 +11,7 @@
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "git@github.com:RobinHerbots/Inputmask.git",
+                "url": "https://github.com/RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -700,12 +700,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tbreuss/yii2-inertia.git",
-                "reference": "364da81fd6603da2a51d591362691f1b25f8f0c4"
+                "reference": "fdc7bf161e9a43000000f57630ec43b8ae222d07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tbreuss/yii2-inertia/zipball/364da81fd6603da2a51d591362691f1b25f8f0c4",
-                "reference": "364da81fd6603da2a51d591362691f1b25f8f0c4",
+                "url": "https://api.github.com/repos/tbreuss/yii2-inertia/zipball/fdc7bf161e9a43000000f57630ec43b8ae222d07",
+                "reference": "fdc7bf161e9a43000000f57630ec43b8ae222d07",
                 "shasum": ""
             },
             "require": {
@@ -723,7 +723,7 @@
                 "MIT"
             ],
             "description": "The Yii 2 adapter for Inertia.js",
-            "time": "2020-02-29T14:07:17+00:00"
+            "time": "2020-03-01T10:59:35+00:00"
         },
         {
             "name": "yiisoft/yii2",
