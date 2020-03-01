@@ -112,16 +112,31 @@ class Organization extends ActiveRecord
 
     /**
      * @param int $id
-     * @return Organization|null
+     * @return array|null
      */
     public static function findById($id)
     {
-        return static::find()
+        $organization = static::find()
             ->select('id, name, email, phone, address, city, region, country, postal_code, deleted_at')
             ->with('contacts')
             ->where('id=:id', ['id' => $id])
             ->asArray()
             ->one();
+
+        if (is_null($organization)) {
+            return $organization;
+        }
+
+        $organization['contacts'] = array_map(function ($row) {
+            return [
+                'id' => $row['id'],
+                'name' => $row['first_name'] . ' ' . $row['last_name'],
+                'city' => $row['city'],
+                'phone' => $row['phone']
+            ];
+        }, $organization['contacts']);
+
+        return $organization;
     }
 
     /**
