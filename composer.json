@@ -1,8 +1,8 @@
 {
-    "name": "yiisoft/yii2-app-basic",
-    "description": "Yii 2 Basic Project Template",
-    "keywords": ["yii2", "framework", "basic", "project template"],
-    "homepage": "http://www.yiiframework.com/",
+    "name": "tebe/pingcrm-yii2",
+    "description": "Ping CRM on Yii 2 - A Yii 2 demo application to illustrate how Inertia.js works",
+    "keywords": ["inertiajs", "vuejs", "yii2", "framework", "basic", "project template", "demo"],
+    "homepage": "https://pingcrm-yii2.tebe.ch",
     "type": "project",
     "license": "BSD-3-Clause",
     "support": {
