@@ -13,12 +13,8 @@ $config = [
     ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'MVDPY5PRmNladLYbX9BTg2Rz-kiy_JRg',
-            'enableCsrfValidation' => false, // TODO enable csrf validation
-            'parsers' => [
-                'application/json' => 'yii\web\JsonParser',
-            ]
+            'class' => 'tebe\inertia\web\Request',
+            'cookieValidationKey' => '7d0d683457df8f6ff9d65e2b507c08cd'
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
