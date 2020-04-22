@@ -85,6 +85,46 @@ To run the Ping CRM tests, run:
 - Node.js & NPM
 - SQLite
 
+## Extending this project
+
+The following steps are required when extending this project with new features.
+
+### In the backend
+
+- add new controller, that extends from inertia controller
+- add one ore more actions
+- return from the actions with a call to the inertia render method   
+
+~~~php
+<?php
+
+namespace app\controllers;
+
+use tebe\inertia\web\Controller;
+
+class CustomController extends Controller
+{
+    public function actionIndex()
+    {
+        $params = [
+            'data' => [],
+        ];
+        return $this->inertia('demo/index', $params);
+    }
+}
+~~~
+
+You can find more information at <https://github.com/tbreuss/yii2-inertia>.
+
+### In the frontend
+
+- add a new page under `resources/js/Pages` for each controller action you added in the backend 
+- copy&paste one of the existing page examples
+- implement and/or extend Vue.js stuff as needed
+- use frontend tooling as described here and in package.json
+
+You can find more information at <https://inertiajs.com>.
+
 ## Credits
 
 - Original work by Jonathan Reinink (@reinink) and contributors
