@@ -26,7 +26,7 @@
   "dependencies": {
     "@inertiajs/inertia": "^0.1.7",
     "@inertiajs/inertia-vue": "^0.1.2",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
     "tailwindcss": "^1.2.0",
