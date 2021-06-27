@@ -13,8 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate
+    - name: Setup PHP with Composer
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        tools: composer:v1
 
     - name: Install composer dependencies
       run: composer install --no-dev --prefer-dist --no-progress --no-suggest
