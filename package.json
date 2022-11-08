@@ -29,12 +29,12 @@
     "lodash": "^4.17.21",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
-    "tailwindcss": "^1.2.0",
+    "tailwindcss": "^1.9.6",
     "vue": "^2.6.11",
     "vue-meta": "^2.3.3"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^2.1.0",
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "autoprefixer": "^9.7.4",
     "cross-env": "^7.0.2",
     "css-loader": "^3.4.2",
